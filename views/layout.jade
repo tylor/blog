@@ -1,0 +1,15 @@
+!!! 5
+html
+  head
+    title Blog
+    link(rel='stylesheet', href=base + '/style.css')
+  body
+    #header
+      a(href='/') Home
+      - if (session.user)
+        span &nbsp;- logged in as #{session.user.name} - 
+        a(href='/logout') logout
+      - else
+        | &nbsp;- 
+        a(href='/login') login
+    #container!= body

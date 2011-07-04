@@ -1,0 +1,14 @@
+h1 Login
+
+!= messages()
+
+form#post(action=base + '/login', method='post')
+  input(type='hidden', name='redirect', value=redirect)
+  p
+    label(for='username') Username:
+    input(type='text', name='username')
+  p
+    label(for='password') Password:
+    input(type='password', name='password')
+  p
+    input(type='submit', 'Login')
