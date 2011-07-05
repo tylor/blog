@@ -3,10 +3,10 @@ var dirty = require('dirty')('posts.dirty'),
     loaded = false,
     ids = 0;
 
-dirty.on('load', function() {
+dirty.on('load', function(length) {
   loaded = true;
-  exports.count(function(err, count) {
-    ids = count;
+  exports.index(function(err, key) {
+    ids = key;
   });
   console.log('Database loaded.');
 });
@@ -34,14 +34,13 @@ Post.prototype.validate = function(fn){
 
 Post.prototype.update = function(data, fn){
   this.updatedAt = new Date;
-  /*for (var key in data) {
+  for (var key in data) {
     if (undefined != data[key]) {
       this[key] = data[key];
     }
   }
-  dirty.rm(data.id, function() { this.save(fn); });
-  */
-  dirty.set(this.id, this, fn());
+  //dirty.rm(data.id, function() { this.save(fn); });
+  this.save(fn);
 };
 
 Post.prototype.destroy = function(fn){
@@ -49,28 +48,53 @@ Post.prototype.destroy = function(fn){
 };
 
 exports.count = function(fn){
-  var count = 0;
+  var count = 0,
+      arr = [];
   dirty.forEach(function(key, val) {
-    count++;
+    if (arr.indexOf(key) == -1) {
+      arr.push(key);
+      count++;
+    }
+  });
+  fn(null, count);
+};
+
+exports.index = function(fn) {
+  var count = 0,
+      arr = [];
+  dirty.forEach(function(key, val) {
+    if (arr.indexOf(key) == -1) {
+      arr.push(key);
+      if (key > count) {
+        count = key;
+      }
+    }
   });
   fn(null, count);
 };
 
 exports.all = function(fn){
-  /*var arr = Object.keys(db).reduce(function(arr, id){
-    arr.push(db[id]);
-    return arr;
-  }, []);*/
-  var arr = [];
+  var arr = [],
+      ret = [];
   dirty.forEach(function(key, val) {
-    arr.push(val);
+    if (arr.indexOf(key) == -1) {
+      arr.push(key);
+      ret.push(val);
+    }
   });
-  console.log(arr);
-  fn(null, arr);
+  fn(null, ret);
 };
 
 exports.get = function(id, fn){
-  fn(null, dirty.get(id));
+  var data = dirty.get(id);
+  var ret = new Post();
+  // Add object methods to stored data.
+  for (var key in data) {
+    if (undefined != data[key]) {
+      ret[key] = data[key];
+    }
+  }
+  fn(null, ret);
 };
 
 exports.destroy = function(id, fn) {

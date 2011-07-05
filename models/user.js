@@ -7,8 +7,8 @@ exports.hash = function(msg, key) {
 
 // Fake data store
 var users = {
-  tylor: {
-    name: 'tylor'
+  admin: {
+    name: 'admin'
     , salt: 'randomly-generated-salt'
     , pass: exports.hash('password', 'randomly-generated-salt')
   }

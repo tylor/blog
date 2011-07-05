@@ -1,7 +1,7 @@
 var User = require('../models/user');
 
 module.exports = function(app){
-  
+
   app.get('/logout', function(req, res){
     // destroy the user's session to log them out
     // will be re-created next request
@@ -18,9 +18,9 @@ module.exports = function(app){
     User.authenticate(req.body.username, req.body.password, function(err, user){
       if (user) {
         // Regenerate session when signing in
-        // to prevent fixation 
+        // to prevent fixation
         req.session.regenerate(function(){
-          // Store the user's primary key 
+          // Store the user's primary key
           // in the session store to be retrieved,
           // or in this case the entire user object
           req.flash('info', 'Signed in successfully');

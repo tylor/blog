@@ -7,7 +7,9 @@ html
     #header
       a(href='/') Home
       - if (session.user)
-        span &nbsp;- logged in as #{session.user.name} - 
+        | &nbsp;- 
+        a(href='/post/add') add post
+        | &nbsp;- logged in as #{session.user.name} - 
         a(href='/logout') logout
       - else
         | &nbsp;- 

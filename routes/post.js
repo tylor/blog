@@ -44,11 +44,10 @@ module.exports = function(app){
         req.flash('error', err.message);
         return res.redirect('back');
       }
-
       post.save(function(err){
         req.flash('info', 'Successfully created post _%s_', post.title);
-        res.redirect('/post/' + post.id);
-      });  
+        res.redirect('home');
+      });
     });
   });
 
