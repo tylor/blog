@@ -39,7 +39,6 @@ Post.prototype.update = function(data, fn){
       this[key] = data[key];
     }
   }
-  //dirty.rm(data.id, function() { this.save(fn); });
   this.save(fn);
 };
 
@@ -51,7 +50,7 @@ exports.count = function(fn){
   var count = 0,
       arr = [];
   dirty.forEach(function(key, val) {
-    if (arr.indexOf(key) == -1) {
+    if (arr.indexOf(key) == -1 && val) {
       arr.push(key);
       count++;
     }
@@ -63,7 +62,7 @@ exports.index = function(fn) {
   var count = 0,
       arr = [];
   dirty.forEach(function(key, val) {
-    if (arr.indexOf(key) == -1) {
+    if (arr.indexOf(key) == -1 && val) {
       arr.push(key);
       if (key > count) {
         count = key;
@@ -77,7 +76,7 @@ exports.all = function(fn) {
   var arr = [],
       ret = [];
   dirty.forEach(function(key, val) {
-    if (arr.indexOf(key) == -1) {
+    if (arr.indexOf(key) == -1 && val) {
       arr.push(key);
       ret.push(val);
     }

@@ -76,13 +76,26 @@ module.exports = function(app){
     post.validate(function(err){
       if (err) {
         req.flash('error', err.message);
-        return res.redirect('back');
+        res.render('post/form', { post: req.body.post });
       }
-      post.update(req.body.post, function(err){
-        if (err) return next(err);
-        req.flash('info', 'Successfully updated post');
-        res.redirect('back');
-      });
+      else {
+        post.update(req.body.post, function(err){
+          if (err) return next(err);
+          req.flash('info', 'Successfully updated post');
+          res.redirect('back');
+        });
+      }
+    });
+  });
+
+  /**
+   * Delete the post.
+   */
+  app.del('/post/:post', User.restrict, function(req, res, next){
+    var post = req.post;
+    post.destroy(function(){
+      req.flash('info', 'The post has been deleted.');
+      res.redirect('home');
     });
   });
 };
