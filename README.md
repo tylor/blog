@@ -1,7 +1,7 @@
 Todo:
 
 - <del>make posts sortable by created date</del>
-- make post fields repopulate if validation fails
+- <del>make post fields repopulate if validation fails</del>
 - add post deletion
 - make sure key index is incremented/loaded properly
 - sometimes buggy when adding new posts, maybe a problem with the count still?

@@ -41,12 +41,16 @@ module.exports = function(app){
     post.validate(function(err){
       if (err) {
         req.flash('error', err.message);
-        return res.redirect('back');
+        data.new = true;
+        res.render('post/form', { post: data});
       }
-      post.save(function(err){
-        req.flash('info', 'Successfully created post _%s_', post.title);
-        res.redirect('home');
-      });
+      else {
+        console.log('we are good');
+        post.save(function(err){
+          req.flash('info', 'Successfully created post _%s_', post.title);
+          res.redirect('home');
+        });
+      }
     });
   });
 

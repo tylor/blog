@@ -1,13 +1,13 @@
 
-- if (post.title)
+- if (post.title && !post.new)
   h1 Editing #{post.title}
 - else
   h1 New Post
 
 != messages()
 
-form#post(action=base + '/post' + (post.title ? '/' + post.id : ''), method='post')
-  - if (post.title)
+form#post(action=base + '/post' + (post.title && !post.new ? '/' + post.id : ''), method='post')
+  - if (post.title && !post.new)
     input(type='hidden', name='_method', value='put')
   p
     label(for='post[title]') Title:
@@ -16,5 +16,5 @@ form#post(action=base + '/post' + (post.title ? '/' + post.id : ''), method='pos
     label(for='post[body]') Body:
     textarea(name='post[body]')= post.body || ''
   p
-    input(type='submit', value=post.title ? 'Update' : 'Create')
+    input(type='submit', value=post.title && !post.new ? 'Update' : 'Create')
   
