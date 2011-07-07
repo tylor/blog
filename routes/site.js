@@ -15,4 +15,14 @@ module.exports = function(app) {
       });
     });
   });
+  app.get('/recent', function(req, res) {
+    Post.count(function(err, count) {
+      Post.recent(function(err, posts) {
+        res.render('index', {
+            count: count
+          , posts: posts
+        });
+      });
+    });
+  });
 };

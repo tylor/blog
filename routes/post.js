@@ -9,7 +9,6 @@ module.exports = function(app){
   /**
    * Apply basic auth to all post related routes
    */
-
   //app.all('/post(/*)?', User.restrict);
 
   /**

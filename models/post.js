@@ -73,7 +73,7 @@ exports.index = function(fn) {
   fn(null, count);
 };
 
-exports.all = function(fn){
+exports.all = function(fn) {
   var arr = [],
       ret = [];
   dirty.forEach(function(key, val) {
@@ -84,6 +84,17 @@ exports.all = function(fn){
   });
   fn(null, ret);
 };
+
+/**
+ * Sort posts by most recent.
+ */
+exports.recent = function(fn) {
+  exports.all(function(err, posts) {
+    fn(null, posts.sort(function(a, b){
+      return new Date(a.createdAt) < new Date(b.createdAt);
+    }));
+  })
+}
 
 exports.get = function(id, fn){
   var data = dirty.get(id);

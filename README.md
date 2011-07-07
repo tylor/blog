@@ -1,6 +1,6 @@
 Todo:
 
-- make posts sortable by created date
+- <del>make posts sortable by created date</del>
 - make post fields repopulate if validation fails
 - add post deletion
 - make sure key index is incremented/loaded properly

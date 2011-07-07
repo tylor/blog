@@ -6,6 +6,8 @@ html
   body
     #header
       a(href='/') Home
+      | &nbsp;- 
+      a(href='/recent') recent
       - if (session.user)
         | &nbsp;- 
         a(href='/post/add') add post
